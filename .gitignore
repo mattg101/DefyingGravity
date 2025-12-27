@@ -1,0 +1,7 @@
+
+FrameTamer/
+.venv/
+__pycache__/
+*.pyc
+screenshots/
+
