@@ -1,21 +1,28 @@
-# Design Changelog: Texture Picker Grid Refinements
+# Design Changelog: Texture Picker Grid Final Polish
 
 ## Problem
-The current 5x5 grid is always visible, creating unnecessary visual noise during texture sampling. It is also too sparse for precise straightening against subtle parallax or architectural lines in photos.
+1. **Low Visibility:** The dashed 60-opacity lines are too subtle against busy textures.
+2. **Startup Flash:** The grid briefly appears when the dialog initializes, which feels like a glitch.
+3. **Zoom Sensitivity:** The grid is locked to the image bounding box. When zoomed in, the grid lines can be sparse or non-existent in the viewport, defeating their purpose.
 
-## Proposed Design Changes
+## Proposed Design Changes (The "Window-Frame Grid")
 
-### 1. Contextual Visibility
-- **Behavior:** The grid overlay should only be visible when the `slider_rot` (Straighten) is being actively manipulated.
-- **Goal:** Clear the Sampler UI for its primary task (sampling) while providing high-utility assistance only when needed (straightening).
+### 1. High-Visibility Aesthetics
+- **Color:** White (`#FFFFFF`).
+- **Opacity:** 100/255 (increased from 60).
+- **Style:** 
+  - **Center Crosshair:** Solid lines passing through the exact center of the preview label.
+  - **Secondary Lines:** Dashed lines every 100 pixels.
 
-### 2. Denser Grid Pattern
-- **Specification:** Increase the grid from 5x5 to **10x10** divisions.
-- **Visuals:** Maintain the semi-transparent dashed white line (`#FFFFFF3C`), but ensure it spans the entire bounding box of the rotated image.
+### 2. Zoom-Independent Spacing
+- **Specification:** The grid should span the **entire preview area** (the whole `lbl_preview` canvas), not just the `img_rect`.
+- **Behavior:** As the user zooms or pans the image, the grid stays static relative to the dialog window. This allows the user to align image features (e.g., a frame member) against the stable vertical/horizontal axes of the window.
+- **Spacing:** Fixed at **1.0 inch / 100px** intervals on screen.
 
-### 3. State Management
-- **Developer Action:** Introduce a `self.show_grid` boolean or a timer to manage the grid's visibility state.
-- **Designer Note:** The grid should ideally persist for ~500ms after the slider is released to allow the user to confirm alignment without holding the mouse.
+### 3. "Quiet" Startup
+- **Requirement:** The grid must remain hidden during initial loading and when the rotation is exactly 0.0 unless the user explicitly touches the slider.
+- **Developer Action:** Initialize `self.grid_visible = False` and ensure the `grid_timer` does not fire during the automated `load_default_texture` sequence.
 
 ## Verification Guard
-- Tester must confirm the grid *disappears* when focusing back on the selection resizing/dragging.
+- Tester must verify that zooming in 10x does NOT change the screen-spacing of the grid lines.
+- Tester must verify no "grey flicker" of grid lines on dialog launch.
