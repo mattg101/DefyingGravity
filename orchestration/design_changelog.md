@@ -1,26 +1,21 @@
-# Design Changelog - Texture Picker Enhancements
+# Design Changelog: Texture Picker Grid Refinements
 
-## Problem Statement
-The current texture sampler relies on manual user correction for orientation and lacks constraints to ensure high-quality texture tiling (2:1 aspect ratio). Panning is also limited to the background image.
+## Problem
+The current 5x5 grid is always visible, creating unnecessary visual noise during texture sampling. It is also too sparse for precise straightening against subtle parallax or architectural lines in photos.
 
-## Proposed Changes
+## Proposed Design Changes
 
-### 1. Aspect Ratio Detection & Orientation
-- **Logic:** App should compare `selection_box.width` to `selection_box.height`.
-- **Vertical Selection:** If `height > width`, system treats texture as a **Vertical Member**.
-- **Horizontal Selection:** If `width > height`, system treats texture as a **Horizontal Member**.
-- **Visual Feedback:** selection box color should shift slightly (e.g., lime green for Horizontal, sky blue for Vertical) to show detection.
+### 1. Contextual Visibility
+- **Behavior:** The grid overlay should only be visible when the `slider_rot` (Straighten) is being actively manipulated.
+- **Goal:** Clear the Sampler UI for its primary task (sampling) while providing high-utility assistance only when needed (straightening).
 
-### 2. Constraint: 2:1 Minimum Aspect Ratio
-- **Rule:** As the user drags, the box should be constrained to a MINIMUM of 2:1 (or 1:2) aspect ratio.
-- **Implementation:** During mouse move, if `w < 2*h` (for horizontal), clamp `w` or `h` to maintain the ratio.
+### 2. Denser Grid Pattern
+- **Specification:** Increase the grid from 5x5 to **10x10** divisions.
+- **Visuals:** Maintain the semi-transparent dashed white line (`#FFFFFF3C`), but ensure it spans the entire bounding box of the rotated image.
 
-### 3. Interaction: Selection-Box Panning
-- **Trigger:** `Shift + Right Click + Drag`.
-- **Behavior:** Offsets the `selection_norm` coordinates without resizing the box.
-- **Standard Panning:** Standard `Right Click + Drag` remains for background image panning.
+### 3. State Management
+- **Developer Action:** Introduce a `self.show_grid` boolean or a timer to manage the grid's visibility state.
+- **Designer Note:** The grid should ideally persist for ~500ms after the slider is released to allow the user to confirm alignment without holding the mouse.
 
-## Success Criteria
-- [x] User cannot create a square or near-square selection.
-- [x] Selection box color changes based on orientation.
-- [x] Selection box can be moved via Shift-Right Click.
+## Verification Guard
+- Tester must confirm the grid *disappears* when focusing back on the selection resizing/dragging.
