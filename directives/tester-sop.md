@@ -20,7 +20,8 @@ To provide objective evidence (screenshots, logs) of the application's state and
 6. **Reporting:** Generate `orchestration/ux_audit_report.md` with visual evidence.
    - **Archive:** Before overwriting, archive the previous report as `orchestration/archives/ux_audit_report_YYYYMMDD_HHMM.md`.
    - **Scorecard:** Every report MUST include the **UX Scorecard Table** (Alignment, Scaling, Contrast, Hierarchy).
-7. **Visual Diff:** Use the `app_auditor.py` diffing output to confirm no unexpected changes in non-target areas.
+7. **Visual Verification Guard:** The Tester MUST physically open the screenshot artifacts and confirm that the target application window and specific UI elements (buttons, labels, dialogs) are visible and correctly rendered. **DO NOT report success based on file presence alone.**
+8. **Visual Diff:** Use the `app_auditor.py` diffing output to confirm no unexpected changes in non-target areas.
 
 ## UX Scorecard Table
 | Metric | Status | Observations |

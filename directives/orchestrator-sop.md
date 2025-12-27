@@ -18,6 +18,8 @@ You must classify the current project state and trigger the corresponding agent.
 ### Initial Startup
 Before triggering any agents, the Orchestrator must ensure the repository is linked.
 - **Rule:** If no repository is present in the workspace, ask the User for the repository URL or instruction to initialize a new one. **Do not proceed until the repo is set up.**
+- **Visual Verification Guard:** The Tester MUST physically open the screenshot artifacts and confirm that the target application window and specific UI elements (buttons, labels, dialogs) are visible and correctly rendered. **DO NOT report success based on file presence alone.**
+- **Visual Diff:** Use the `app_auditor.py` diffing output to confirm no unexpected changes in non-target areas.
 
 ### Agent Routing
 | Current State Condition | Decision / Action | Next Agent |
@@ -31,7 +33,7 @@ Before triggering any agents, the Orchestrator must ensure the repository is lin
 ## Handoff Protocol
 When switching agents, you must:
 1. **Validate Inputs:** specific check—does the required file exist? (e.g., Don't call Developer if `design_changelog.md` is empty).
-2. **Verify Screenshots:** Ensure that any Audit report from the Tester includes verified screenshots where the application is clearly visible. If the Tester provides a blank or invalid screenshot, return the task to the Tester for debugging.
+2. **Verify Screenshots:** Ensure that any Audit report from the Tester includes verified screenshots where the application is clearly visible. The Orchestrator MUST inspect the linked artifacts to confirm the app is rendered. If the Tester provides a blank or invalid screenshot (e.g., just the task manager or desktop), return the task to the Tester for debugging.
 3. **Clear Context:** Summarize the previous agent's finding in 1 sentence to the next agent.
    - *Example:* "Tester found clipping on the 'Export' button. Designer, please review `screenshots/` and advise."
 
@@ -53,5 +55,5 @@ When switching agents, you must:
 ## Definition of Done
 The workflow is complete when:
 1. The Tester returns `STATUS: PASS`.
-2. The Developer successfully merges the feature branch to `master`.
-3. You have notified the User: "Task Complete. Master branch updated."
+2. The Developer successfully merges the feature branch to `main`.
+3. You have notified the User: "Task Complete. Main branch updated."
