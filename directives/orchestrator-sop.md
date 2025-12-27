@@ -30,6 +30,12 @@ Before triggering any agents, the Orchestrator must ensure the repository is lin
 | **Changelog Received** | "Specs are ready. Time to build." | **Developer** (Feature Task) |
 | **Build Complete** | "New code exists. We must verify it didn't break anything." | **Tester** |
 
+### Implementation Planning Guidelines
+The Orchestrator must ensure that any `implementation_plan.md` follows a **Persona-Based Workflow**:
+- **Rule:** Every step in the "Proposed Changes" or "Verification Plan" sections MUST specify which SOP/Persona is responsible for the action.
+- **Format:** `[SOP: Developer]`, `[SOP: Designer]`, `[SOP: Tester]`, or `[SOP: PM]`.
+- **Reasoning:** This ensures that the workflow is modular and that each agent knows exactly which part of the plan they are executing.
+
 ## Handoff Protocol
 When switching agents, you must:
 1. **Validate Inputs:** specific check—does the required file exist? (e.g., Don't call Developer if `design_changelog.md` is empty).
