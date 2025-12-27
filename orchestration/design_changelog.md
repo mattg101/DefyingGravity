@@ -1,35 +1,26 @@
-# Design Changelog: UI Compactness & Export Refinements
+# Design Changelog - Texture Picker Enhancements
 
-## Objective
-Refine the FrameTamer UI for a denser, more compact layout and improve the accessibility of export features.
+## Problem Statement
+The current texture sampler relies on manual user correction for orientation and lacks constraints to ensure high-quality texture tiling (2:1 aspect ratio). Panning is also limited to the background image.
 
 ## Proposed Changes
 
-### 1. Frame Specs Box (Component Consolidation)
-- **Problem:** "Frame Aperture" and "Frame Profile" take up too much vertical space.
-- **Solution:** Merge these into a single collapsible box named "Frame Specs".
-- **Implementation:** Use a `QGroupBox` or a custom collapsible widget to house both sections. Default to expanded, but allow users to collapse it.
+### 1. Aspect Ratio Detection & Orientation
+- **Logic:** App should compare `selection_box.width` to `selection_box.height`.
+- **Vertical Selection:** If `height > width`, system treats texture as a **Vertical Member**.
+- **Horizontal Selection:** If `width > height`, system treats texture as a **Horizontal Member**.
+- **Visual Feedback:** selection box color should shift slightly (e.g., lime green for Horizontal, sky blue for Vertical) to show detection.
 
-### 2. Export Panel (Horizontal Top Row)
-- **Problem:** Export buttons are buried or occupy valuable sidebar space.
-- **Solution:** Move the following to a prominent top-row horizontal panel:
-    - "Export Mat Blueprint (PDF)" button
-    - "Save for Print (JPG)" button
-    - DPI Selector (dropdown/spinbox)
-- **Implementation:** Create a `QHBoxLayout` at the top of the main window or as the first item in the sidebar/main layout.
+### 2. Constraint: 2:1 Minimum Aspect Ratio
+- **Rule:** As the user drags, the box should be constrained to a MINIMUM of 2:1 (or 1:2) aspect ratio.
+- **Implementation:** During mouse move, if `w < 2*h` (for horizontal), clamp `w` or `h` to maintain the ratio.
 
-### 3. Dimensional Printouts (Density Increase)
-- **Problem:** Metrics and stats labels have too much vertical padding.
-- **Solution:** Reduce vertical spacing by approximately 30%.
-- **Implementation:** 
-    - Adjust `setSpacing()` on layouts.
-    - Set specific `maximumHeight` or `padding` on label widgets.
-    - Target: Stats and Mat Metrics labels.
+### 3. Interaction: Selection-Box Panning
+- **Trigger:** `Shift + Right Click + Drag`.
+- **Behavior:** Offsets the `selection_norm` coordinates without resizing the box.
+- **Standard Panning:** Standard `Right Click + Drag` remains for background image panning.
 
-## Visual Reference (Conceptual)
-Based on [baseline_screenshot.png](file:///C:/Users/mattg/.gemini/antigravity/brain/3e4c7fee-f5d7-40ff-9557-63e5e836b35a/baseline_screenshot.png).
-
-## Definition of Done for Developer
-1. "Frame Specs" box exists and is collapsible.
-2. Export tools are in a horizontal top row.
-3. Dimensional printouts are visually denser (verified by Tester).
+## Success Criteria
+- [x] User cannot create a square or near-square selection.
+- [x] Selection box color changes based on orientation.
+- [x] Selection box can be moved via Shift-Right Click.

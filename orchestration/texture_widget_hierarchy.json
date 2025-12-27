@@ -1,0 +1,64 @@
+{
+    "name": "unnamed",
+    "class": "TextureSamplerDialog",
+    "visible": true,
+    "geometry": "130,30 1000x800",
+    "children": [
+        {
+            "name": "unnamed",
+            "class": "QLabel",
+            "visible": true,
+            "geometry": "11,11 978x80",
+            "children": []
+        },
+        {
+            "name": "unnamed",
+            "class": "QLabel",
+            "visible": true,
+            "geometry": "11,97 978x656",
+            "children": []
+        },
+        {
+            "name": "unnamed",
+            "class": "QPushButton",
+            "visible": true,
+            "geometry": "11,759 87x30",
+            "children": []
+        },
+        {
+            "name": "unnamed",
+            "class": "QLabel",
+            "visible": true,
+            "geometry": "104,759 57x30",
+            "children": []
+        },
+        {
+            "name": "unnamed",
+            "class": "QSlider",
+            "visible": true,
+            "geometry": "167,766 511x16",
+            "children": []
+        },
+        {
+            "name": "unnamed",
+            "class": "QPushButton",
+            "visible": true,
+            "geometry": "684,761 81x26",
+            "children": []
+        },
+        {
+            "name": "unnamed",
+            "class": "QPushButton",
+            "visible": true,
+            "geometry": "771,759 100x30",
+            "children": []
+        },
+        {
+            "name": "unnamed",
+            "class": "QPushButton",
+            "visible": true,
+            "geometry": "877,759 112x30",
+            "children": []
+        }
+    ]
+}
