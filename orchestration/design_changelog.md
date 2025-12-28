@@ -1,28 +1,29 @@
-# Design Changelog: Texture Picker Grid Final Polish
+# Design Changelog: UI & Input Refinements
 
-## Problem
-1. **Low Visibility:** The dashed 60-opacity lines are too subtle against busy textures.
-2. **Startup Flash:** The grid briefly appears when the dialog initializes, which feels like a glitch.
-3. **Zoom Sensitivity:** The grid is locked to the image bounding box. When zoomed in, the grid lines can be sparse or non-existent in the viewport, defeating their purpose.
+## 1. Mat Dimensions Display
+**Problem:** Users need to know the exact physical dimensions of each side of the mat (Top, Bottom, Left, Right) to cut it accurately, but currently only the total outer size is shown prominently.
+**Solution:**
+- Add a new section to the bottom status area (`lbl_stats`).
+- **Format:**
+  ```html
+  <b>MAT BORDERS:</b><br>
+  T: [val] | B: [val]<br>
+  L: [val] | R: [val]
+  ```
+- **Context:** Place this next to the *Cut Size* dimensions.
 
-## Proposed Design Changes (The "Window-Frame Grid")
+## 2. Input Increments
+**Problem:** The default spinbox increment (1.0) is too coarse for framing precision.
+**Solution:**
+- **Standardize Steps:** Set `singleStep` to **0.125** (1/8 inch) for Imperial mode and **2.0** (2mm) for Metric mode.
+- **Toggle Logic:** Ensure this updates dynamically when the user switches units via `toggle_units`.
 
-### 1. High-Visibility Aesthetics
-- **Color:** White (`#FFFFFF`).
-- **Opacity:** 100/255 (increased from 60).
-- **Style:** 
-  - **Center Crosshair:** Solid lines passing through the exact center of the preview label.
-  - **Secondary Lines:** Dashed lines every 100 pixels.
-
-### 2. Zoom-Independent Spacing
-- **Specification:** The grid should span the **entire preview area** (the whole `lbl_preview` canvas), not just the `img_rect`.
-- **Behavior:** As the user zooms or pans the image, the grid stays static relative to the dialog window. This allows the user to align image features (e.g., a frame member) against the stable vertical/horizontal axes of the window.
-- **Spacing:** Fixed at **1.0 inch / 100px** intervals on screen.
-
-### 3. "Quiet" Startup
-- **Requirement:** The grid must remain hidden during initial loading and when the rotation is exactly 0.0 unless the user explicitly touches the slider.
-- **Developer Action:** Initialize `self.grid_visible = False` and ensure the `grid_timer` does not fire during the automated `load_default_texture` sequence.
+## 3. Frame Specs Collapse Polish
+**Problem:** The `CollapsibleBox` flickers because it animates `maximumHeight` without forcing a geometry update, causing the layout to "jump".
+**Solution:**
+- **Animation Polish:** Switch to a simpler visibility toggle or use `QPropertyAnimation` on a fixed-height container with `updateGeometry` calls on each tick.
+- **Simplification (Preferred):** For stability, remove the complex height animation and simply toggle visibility + `updateGeometry`. Getting smooth height animation in PyQt layouts is notoriously difficult without custom layout engines. A clean "snap" is better than a "glitchy slide".
 
 ## Verification Guard
-- Tester must verify that zooming in 10x does NOT change the screen-spacing of the grid lines.
-- Tester must verify no "grey flicker" of grid lines on dialog launch.
+- **Inputs:** Pressing Up/Down arrow on any dimension spinbox must change the value by exactly 0.125 (in) or 2.0 (mm).
+- **Collapse:** Toggling "Frame Specs" must instantly hide/show content without shaking the window.
