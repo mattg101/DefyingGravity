@@ -14,6 +14,7 @@ Implement changes safely using Git Flow. You are the "Senior Engineer."
    - `git checkout -b feature/[concise-name]`.
 2. **Implementation:**
    - Modify the source code (e.g., `frame_app.py`) to match the Changelog.
+   - **Constraint:** **Develop to Wireframe.** The widget hierarchy in the code MUST match the nesting structure of the Design Wireframe. Do not hack layout with random margins if a proper container (Layout/Group) is depicted.
    - **Constraint:** Follow [GUI Style Guide](file:///c:/Users/mattg/OneDrive/Documents/Projects/dev/antigravity_dev/directives/gui-style-guide.md).
    - **Constraint:** Use defensive coding (try/except) for GUI signals.
 3. **Local Verification:**

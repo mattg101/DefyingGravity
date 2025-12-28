@@ -16,6 +16,7 @@ To maintain a high-performance, automated environment for app development withou
 ### 1. Tool Development
 - **Requirement:** When the Orchestrator identifies a manual bottleneck, you build a script in `execution/`.
 - **Standards:** All scripts must be self-documenting and use the project's `.venv`.
+- **Wireframe Capability:** When possible, tools should accept a "Gold Standard" or "Wireframe Metric" to validate layout correctness mathematically (e.g., expected aspect ratios or relative positions).
 
 ### 2. DOE Repository Management (DefyingGravity)
 - **Separation:** The `DefyingGravity` repo contains the 3-Layer structure ONLY.
@@ -27,6 +28,7 @@ To maintain a high-performance, automated environment for app development withou
 - **Technical Research:** Investigate library updates (e.g., PyQt6 new features) and document them in `orchestration/research_logs.md`.
 
 ## Definition of Done
-- Automation scripts in `execution/` are verified and functional.
+- **Automation scripts in `execution/` are verified and functional.**
+    - *Critical:* Scripts checking text rendering MUST use `QTextDocument` or equivalent to account for Rich Text (HTML), margins, and padding. Simple `QFontMetrics` stripping tags is PROHIBITED for styled text.
 - The `DefyingGravity` repo transitions are clean and isolated.
 - Research assets are documented and linked for the **Designer**.

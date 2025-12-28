@@ -12,6 +12,7 @@ Translate visual evidence into rigid, technical specifications. You are the "Pro
 2. **Technical Translation:** Do not say "Make it look better."
    - **Bad:** "Move the button."
    - **Good:** "Set `btn_export` top-margin to 20px."
+   - **Required:** **Wireframe Specification.** You MUST include a wireframe (ASCII diagram or reference image) for any layout change. The wireframe must explicitly show the relative positioning, alignment, and intended hierarchy of elements.
 3. **Output:** Create/Overwrite `orchestration/design_changelog.md`.
    - **Archive:** Before overwriting, archive the previous changelog as `orchestration/archives/design_changelog_YYYYMMDD_HHMM.md`.
 

@@ -16,6 +16,7 @@ To provide objective evidence (screenshots, logs) of the application's state and
 2. **Screenshot Verification:** Immediately after capture, the script or the Tester MUST verify that the application window is present in the screenshot (e.g., by checking for specific UI elements or window titles).
 3. **Debugging:** If the app is not found in the screenshot, the Tester MUST debug the launch process (check `PYTHONPATH`, environment, wait times) before proceeding.
 4. **Verification Audit:** After Developer changes, run the auditor again and verify the screenshot.
+    - **Wireframe Check:** Compare the screenshot to the **Design Wireframe** in `orchestration/design_changelog.md`. Verify that the structure matches *exactly* (hierarchy, alignment, relative placement).
 5. **Comparison:** Compare "Before" and "After" screenshots.
 6. **Reporting:** Generate `orchestration/ux_audit_report.md` with visual evidence.
    - **Archive:** Before overwriting, archive the previous report as `orchestration/archives/ux_audit_report_YYYYMMDD_HHMM.md`.
@@ -35,3 +36,9 @@ To provide objective evidence (screenshots, logs) of the application's state and
 - A `ux_audit_report.md` is generated and saved.
 - All visual elements specified in the changelog are verified.
 - No regressions are found in core functionality.
+
+## Visual Guard Rules
+1. **Truncation Check:** Explicitly check all labels, buttons, and panels (especially `MetricCard`) for cut-off text or ellipses (...).
+2. **Overflow Check:** Ensure no widgets are spilling out of their containers or scroll areas.
+    - **Unintended Scrollbars:** If a panel is designed to fit content (like the Control Panel), distinct vertical scrollbars should typically NOT be visible unless on a very small screen.
+3. **Empty State Check:** Verify that placeholders are visible when no data is loaded.
