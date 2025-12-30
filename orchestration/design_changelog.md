@@ -1,48 +1,81 @@
-# Design Changelog: UI Panel Redesign
+# Design Changelog: UI Panel Redesign (Wireframe Revision)
 
 ## 1. Grouping & Layout Strategy
-**Goal:** De-clutter the main panel by leveraging Collapsible Boxes and logical grouping, now that global actions are in the Menu Bar.
+**Goal:** De-clutter the main panel and enforce overflow-safe widths.
 
 ### Proposed Hierarchy (Vertical Layout)
-1.  **Source Asset (Collapsible - Expanded by Default)**
-    *   *Controls:* Import Buttons (if not strictly in menu), Google Photos, Crop Editor.
-    *   *Note:* The "Import" and "Google Photos" buttons in the top row are redundant with the File menu but might be kept as "Quick Actions" or moved inside this group.
-    *   *Decision:* Keep "Source Art" specific controls here.
+1.  **Source Asset (Collapsible - Expanded)**
+2.  **Dimensions & Matting (Collapsible - Expanded)**
+3.  **Frame Specs (Collapsible - Collapsed)**
+4.  **Appearance (Collapsible - Expanded)**
+5.  **Metric Display (Pinned Bottom)**
 
-2.  **Dimensions & Matting (Collapsible - Expanded by Default)**
-    *   *Controls:* Aperture Width/Height, Mat Borders (T/B/L/R), "Link All" toggle.
-    *   *Layout:* Grid layout for compact visuals.
+---
 
-3.  **Frame Specs (Collapsible - Collapsed by Default)**
-    *   *Controls:* Frame Face, Rabbet, Print Border (moved from top/scattered).
-    *   *Note:* This already exists but can be refined.
+## 2. Wireframe Specification: Layout & Constraints
+**Goal:** Address overflow and truncation by defining rigid pixel constraints.
 
-4.  **Appearance (Collapsible - Expanded by Default)**
-    *   *Controls:* Mat Color Picker, Frame Color Picker, Texture Actions.
+### Relative Positioning Wireframe (ASCII)
+```text
++------------------------------------------------+
+|  [Window: 1280x800]                            |
+|  +------------------------------------------+  |
+|  | [Export Panel (Top Layout)]              |  |
+|  +------------------------------------------+  |
+|  | +-----------------+ +------------------+ |  |
+|  | | [Control Panel] | | [Visualization]  | |  |
+|  | | Width: 360px    | | Area             | |  |
+|  | | Fixed           | |                  | |  |
+|  | | +-------------+ | |                  | |  |
+|  | | | [Scroll]    | | |                  | |  |
+|  | | | W: 340px    | | |                  | |  |
+|  | | |             | | |                  | |  |
+|  | | | +---------+ | | |                  | |  |
+|  | | | | Groups  | | |                  | |  |
+|  | | | +---------+ | | |                  | |  |
+|  | | |             | | |                  | |  |
+|  | | | [MetricC] | | |                  | |  |
+|  | | | W: 330px  | | |                  | |  |
+|  | | | Padding:10| | |                  | |  |
+|  | | +---------+ | | |                  | |  |
+|  | |-------------| | |                  | |  |
+|  | +-----------------+ +------------------+ |  |
+|  +------------------------------------------+  |
++------------------------------------------------+
+```
 
-### Defaults Management
-*   **Move:** "Save as Default" button -> **Preferences > Save Current as Default**.
-*   **Rationale:** This is a "set and forget" action, not a daily workflow button.
+---
 
-## 2. Metric Display Redesign
-**Goal:** Make the final dimensions "stand out" as the primary output of the tool.
+## 3. MetricCard Internal Wireframe
+```text
++---------------------------------------+
+| MetricCard (MaxW: 330px)              |
+| +-----------------------------------+ |
+| | Title: "Final Dimensions" (Small) | |
+| |-----------------------------------| |
+| | Hero: "10.125" (257mm) x 8.2" "   | |
+| | (Bold 18pt-20pt, Word Wrap: ON)   | |
+| |-----------------------------------| |
+| | [Grid Layout (2x2)]               | |
+| | +-----------------+-------------+ | |
+| | | Cut: 10" x 8"   | Aper: 9x7   | | |
+| | | (Small Label)   |             | | |
+| | |-----------------|-------------| | |
+| | | Prnt: 7 x 5     | Mat: 1.0"   | | |
+| | +-----------------+-------------+ | |
+| +-----------------------------------+ |
++---------------------------------------+
+```
 
-### Visual Style
-*   **Location:** Bottom of the Control Panel (pinned) or a dedicated "Status Bar" area?
-*   **Current:** Small text in `lbl_stats`.
-*   **New Design:**
-    *   **Card-based Layout:** A dedicated styled `QFrame` at the bottom.
-    *   **Typography:** Large, bold font for the "Outer Frame Size" (e.g., 24pt).
-    *   **Information Hierarchy:**
-        1.  **Outer Size** (Hero Text)
-        2.  **Aperture / Cut Size** (Secondary Text)
-    *   **Colors:** High-contrast background (dark grey/black) with accent color for the numbers (e.g., `#0078d7` or Gold).
+---
 
-## 3. Implementation Details
-*   **Widget:** `MetricCard(QFrame)`
-    *   `setStyleSheet` for background and borders.
-    *   `QVBoxLayout` with `QLabel`s for hierarchy.
-*   **Refactoring:**
-    *   Remove `btn_save_defaults` from `setup_ui`.
-    *   Add `act_save_defaults` to `setup_menu`.
-    *   Wrap existing layouts in `CollapsibleBox` containers where missing.
+## 4. Implementation Constraints (For Developer)
+- **Control Panel (`panel_container`)**: Fixed width **360px**.
+- **Scroll Area (`scroll_area`)**: Fixed width **340px**. (Vertical scrollbar ALWAYS visible or gutter reserved).
+- **MetricCard**: 
+  - `setMinimumWidth(320)`
+  - `setMaximumWidth(330)`
+  - Header text must use `wordWrap(True)`.
+  - Grid cells must have `wordWrap(True)`.
+- **Top Export Panel**: 
+  - Ensure "FrameTamer Pro" label and "DPI" label have minimum widths to prevent "squeezing" which triggers the validator/truncation.

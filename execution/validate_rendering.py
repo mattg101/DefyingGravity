@@ -55,7 +55,13 @@ def validate_widget_rendering(widget, path=""):
             
             if req_w > avail_w - padding_w + 2:
                  issues.append(f"TRUNCATION RISK (Horizontal): '{text}' (Req W: {req_w}, Avail W: {avail_w}) in {path}/{type(widget).__name__}")
-                
+    
+    # Check for horizontal scrollbars in scroll areas (indicating overflow)
+    from PyQt6.QtWidgets import QScrollArea
+    if isinstance(widget, QScrollArea):
+        if widget.horizontalScrollBar().isVisible():
+            issues.append(f"OVERFLOW DETECTED: Horizontal scrollbar is visible in {path}/{type(widget).__name__}")
+
     # Recurse
     for child in widget.children():
         if isinstance(child, QWidget) and child.isVisible():
