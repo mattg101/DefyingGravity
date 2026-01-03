@@ -1,7 +1,7 @@
 import sys
 import os
 import time
-from PyQt6.QtWidgets import QApplication, QColorDialog
+from PyQt6.QtWidgets import QApplication, QColorDialog, QLabel
 from PyQt6.QtCore import QTimer, Qt, QPoint
 from PyQt6.QtGui import QColor
 
@@ -57,7 +57,17 @@ def deep_color_audit():
                 widget.grab().save(f'screenshots/deep_audit_2_picker_initial_{ts}.png')
                 
                 # Step 3: Change color and verify live name update
-                print("Step 3: Simulating color change in picker...")
+                print("Step 3: Checking if '&HTML' was replaced by 'Hex:'...")
+                found_hex = False
+                for label in widget.findChildren(QLabel):
+                    if "Hex:" in label.text():
+                        found_hex = True
+                        print("Verification: Found 'Hex:' label!")
+                        break
+                if not found_hex:
+                    print("Verification FAIL: 'Hex:' label not found!")
+                
+                print("Step 3b: Simulating color change in picker...")
                 widget.setCurrentColor(QColor("#708090")) # Slate Gray
                 
                 # Wait for label update
