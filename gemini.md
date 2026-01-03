@@ -42,13 +42,13 @@ You operate within a **3-Layer Architecture** designed to maximize reliability a
 - **UI Interaction Rule:** Never screenshot a collapsed UI. Verification scripts must programmatically expand sections, click buttons, and capture state transitions (e.g., dialogs open, hover effects).
 - **Rule:** Never "guess" state. Run a script or tail a log to see it.
 
-### Deterministic Editing Protocol
+### Ultra-Rigorous Editing Protocol (Rule of Zero)
 To eliminate "Malformed Edit" or "Target Content Not Found" errors, you MUST follow these steps:
-1. **Fresh Read:** Always call `view_file` or `view_code_item` immediately before editing to ensure the exact character sequence (including whitespace) is known.
-2. **No Line Numbers:** Never include the line numbers (e.g., `123: `) from the `view_file` output in your `TargetContent`.
-3. **Exact Match:** The `TargetContent` must be an exact, character-for-character match of the text in the file, including leading/trailing whitespace and indentation.
-4. **Minimal Chunks:** When using `multi_replace_file_content`, keep chunks focused and distinct. Avoid overlapping or adjacent chunks that might confuse the applicator.
-5. **Update Verification:** After an edit, verify the change immediately with another `view_file` call if the following verification step depends on the exact code state.
+1. **Rule of Zero (Line Numbers):** Never copy the line number prefix (e.g., `123: `) from the `view_file` or `view_code_item` output into your `TargetContent`. The file content starts *after* the colon and space.
+2. **Deterministic Matching:** Always perform a `view_file` of the EXACT window you intend to edit immediately before calling an edit tool. Use this to verify whitespace and indentation character-for-character.
+3. **No Guessing/No Padding:** Do not "invent" missing lines or add extra newlines/spaces at the end of `TargetContent` or `ReplacementContent` unless they are explicitly present in the source.
+4. **Itemized Replacement:** If you are changing multiple methods in a class, use `multi_replace_file_content` with small, discrete chunks rather than one giant block.
+5. **Self-Correction Loop:** If an edit fails, DO NOT guess a fix. Call `view_file` with a narrow 10-line range around the failure point to inspect the exact characters (e.g., CRLF vs LF, tabs vs spaces) then re-apply.
 
 ### Deterministic Path Protocol
 To eliminate errors related to reviewing, removing, and copying files, you MUST follow these steps:

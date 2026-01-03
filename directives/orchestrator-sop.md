@@ -44,7 +44,7 @@ Ensure the repository is linked and environment is ready.
 ## Constraints
 - **State Management:** All records of the current state must be kept in the `orchestration/` folder.
 - **Monitoring:** You are responsible for tailing logs and pulling stats post-deployment to confirm stability.
-- **Edit Validation:** Ensure agents follow the **Deterministic Editing Protocol**. If an agent fails an edit twice, intervene and provide a fresh `view_file` of the target area.
+- **Edit Validation:** Ensure agents follow the **Ultra-Rigorous Editing Protocol (Rule of Zero)**. If an agent fails an edit, the next command MUST be a corrective `view_file`.
 - **User Communication:** You are the only agent allowed to provide progress updates to the User.
 
 ## Definition of Done
