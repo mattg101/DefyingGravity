@@ -8,7 +8,7 @@ from PyQt6.QtGui import QColor
 # Add FrameTamer dir to path
 sys.path.append(os.path.join(os.getcwd(), 'FrameTamer'))
 from src.app import FrameApp
-from src.dialogs import MatColorPickerDialog
+from src.dialogs import ProfessionalColorPickerDialog
 
 def deep_color_audit():
     app = QApplication(sys.argv)
@@ -37,60 +37,56 @@ def deep_color_audit():
 
     def capture_step_1(window, ts):
         print("Step 1: Capturing full window with expanded panels...")
-        window.grab().save(f'screenshots/deep_audit_1_full_{ts}.png')
-        window.group_app.grab().save(f'screenshots/deep_audit_1_appearance_{ts}.png')
+        window.grab().save(f'screenshots/dual_audit_1_full_{ts}.png')
+        window.group_app.grab().save(f'screenshots/dual_audit_1_appearance_{ts}.png')
         
         # Step 2: Open Mat Color Picker
         print("Step 2: Opening Mat Color Picker...")
-        # Since exec() blocks, we need a timer to capture the dialog
-        QTimer.singleShot(1000, lambda: capture_step_2_picker(ts))
-        
-        # We simulate the button click
-        window.pick_mat() # This will open the dialog
+        QTimer.singleShot(1000, lambda: capture_step_2_picker(ts, "Mat Color"))
+        window.pick_mat()
 
-    def capture_step_2_picker(ts):
-        print("Step 2 (Capture): Searching for open MatColorPickerDialog...")
-        # Find the active dialog
+    def capture_step_2_picker(ts, context):
+        print(f"Step 2 (Capture): Searching for open ProfessionalColorPickerDialog ({context})...")
         for widget in QApplication.topLevelWidgets():
-            if isinstance(widget, MatColorPickerDialog):
-                print("Found MatColorPickerDialog. Capturing...")
-                widget.grab().save(f'screenshots/deep_audit_2_picker_initial_{ts}.png')
+            if isinstance(widget, ProfessionalColorPickerDialog):
+                print(f"Found ProfessionalColorPickerDialog for {context}. Capturing...")
+                widget.grab().save(f'screenshots/dual_audit_2_picker_{context}_{ts}.png')
                 
-                # Step 3: Change color and verify live name update
-                print("Step 3: Checking if '&HTML' was replaced by 'Hex:'...")
-                found_hex = False
+                # Verify prefix
+                found_prefix = False
                 for label in widget.findChildren(QLabel):
-                    if "Hex:" in label.text():
-                        found_hex = True
-                        print("Verification: Found 'Hex:' label!")
+                    if context.upper() in label.text():
+                        found_prefix = True
+                        print(f"Verification: Found '{context.upper()}' prefix in picker!")
                         break
-                if not found_hex:
-                    print("Verification FAIL: 'Hex:' label not found!")
                 
-                print("Step 3b: Simulating color change in picker...")
-                widget.setCurrentColor(QColor("#708090")) # Slate Gray
-                
-                # Wait for label update
-                QTimer.singleShot(500, lambda w=widget: capture_step_3_updated(w, ts))
+                if context == "Mat Color":
+                    widget.setCurrentColor(QColor("#708090")) # Slate Gray
+                    print(f"Set Mat Color to: {widget.currentColor().name()}")
+                    QTimer.singleShot(500, lambda w=widget: capture_step_3_frame(w, ts))
+                else:
+                    widget.setCurrentColor(QColor("#8B0000")) # Deep Red
+                    print(f"Set Frame Color to: {widget.currentColor().name()}")
+                    QTimer.singleShot(500, lambda w=widget: capture_step_4_final_check(w, ts))
                 return
-        print("Dialog not found!")
-        app.quit()
+        print(f"Dialog for {context} not found!")
 
-    def capture_step_3_updated(widget, ts):
-        print("Step 3 (Capture): Verifying matched name in picker...")
-        widget.grab().save(f'screenshots/deep_audit_3_picker_updated_{ts}.png')
-        
-        # Step 4: Accept and check main UI
-        print("Step 4: Accepting picker and checking main UI...")
+    def capture_step_3_frame(widget, ts):
         widget.accept()
-        
-        QTimer.singleShot(500, lambda: capture_step_4_final(window, ts))
+        print("Step 3: Opening Frame Color Picker...")
+        QTimer.singleShot(1000, lambda: capture_step_2_picker(ts, "Frame Color"))
+        window.pick_frame()
 
-    def capture_step_4_final(window, ts):
-        print("Step 4 (Capture): Verifying main UI label...")
-        window.group_app.grab().save(f'screenshots/deep_audit_4_main_ui_updated_{ts}.png')
+    def capture_step_4_final_check(widget, ts):
+        widget.accept()
+        print("Step 4: Final verification of dual labels...")
+        window.group_app.grab().save(f'screenshots/dual_audit_4_final_{ts}.png')
         
-        print("Deep Audit Complete. Evidence captured in screenshots/deep_audit_*")
+        # Check label text (simple print for log verification)
+        print(f"Mat Label: {window.lbl_mat_color_name.text()}")
+        print(f"Frame Label: {window.lbl_frame_color_name.text()}")
+        
+        print("Deep Audit Complete.")
         window.close()
         app.quit()
 
