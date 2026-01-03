@@ -81,6 +81,9 @@ def deep_color_audit():
 
     def capture_step_4_final_check(widget, ts):
         widget.accept()
+        QTimer.singleShot(500, lambda: finalize_audit(ts))
+
+    def finalize_audit(ts):
         print("Step 4: Final verification of dual labels...")
         window.group_app.grab().save(f'screenshots/dual_audit_4_final_{ts}.png')
         
