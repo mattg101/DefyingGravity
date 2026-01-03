@@ -26,6 +26,11 @@ To maintain SOC-2 level configurations, manage SDK alignment, and handle Docker-
    - Tailing logs to "babysit" deployments.
    - Alert the Orchestrator/User of any anomalies post-deployment.
 
+4. **Path & Asset Hygiene:**
+   - Always use **Deterministic Path Protocol** (absolute paths ONLY).
+   - Perform cleanup of temporary files in the workspace (logs, capture artifacts).
+   - Ensure all assets move to the correct Artifact Directory before notifying the user.
+
 ## Definition of Done
 - Deployments are successful and monitored.
 - Environments are clean (containers pruned).

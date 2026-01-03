@@ -50,6 +50,20 @@ To eliminate "Malformed Edit" or "Target Content Not Found" errors, you MUST fol
 4. **Minimal Chunks:** When using `multi_replace_file_content`, keep chunks focused and distinct. Avoid overlapping or adjacent chunks that might confuse the applicator.
 5. **Update Verification:** After an edit, verify the change immediately with another `view_file` call if the following verification step depends on the exact code state.
 
+### Deterministic Path Protocol
+To eliminate errors related to reviewing, removing, and copying files, you MUST follow these steps:
+1. **Strict Absolute Paths:** Always use absolute paths (e.g., `C:\Users\...`) for all tool calls and terminal commands. Never rely on relative paths or assuming a certain `Cwd`.
+2. **Artifact Directory Identity:** The project workspace and the artifact directory (`.gemini\antigravity\brain\...`) are distinct. 
+   - Write code to the **Workspace**.
+   - Store planning, verification artifacts, and media in the **Artifact Directory**.
+3. **Screenshot Lifecycle:** 
+   - **Capture:** Save temporarily in the workspace.
+   - **Move:** Immediately copy/move to the Artifact Directory via `run_command` (e.g., `copy screen.png C:\Users\...\brain\...`).
+   - **Verify:** Confirm the file exists in the Artifact Directory before calling `notify_user` with a review request.
+   - **Embed:** Only embed files located in the Artifact Directory using the `![caption](absolute_path)` syntax.
+4. **Cleanup:** Periodically prune temporary workspace files (logs, temp images) once they are moved to the Artifact Directory.
+5. **No Placeholders:** Never use placeholder paths. If you need a path you don't have, find it with `find_by_name` or `list_dir`.
+
 ## Operating Principles
 
 ### 1. Specs First, Code Second

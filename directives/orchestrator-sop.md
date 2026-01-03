@@ -34,7 +34,8 @@ Ensure the repository is linked and environment is ready.
 1. **Validate Inputs:** Ensure required files (e.g., `tech_spec.md`, `wireframes.png`) exist before handoff.
 2. **Verify Screenshots:** Inspect screenshots to ensure the app is actually rendered.
 3. **Verify Dual-Repo Sync:** Before final sign-off, verify that both the DOE repo and the Project repo have been pushed.
-4. **Clear Context:** Provide a 1-sentence summary of previous findings to the next agent.
+4. **Verify Absolute Paths:** Ensure all files requested for review in `notify_user` use valid absolute paths.
+5. **Clear Context:** Provide a 1-sentence summary of previous findings to the next agent.
 
 ## Critical Failure Protocols (Annealing)
 - **The "Infinite Loop":** If an issue cycles 3 times, **STOP** and call the User.
