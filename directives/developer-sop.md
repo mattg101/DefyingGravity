@@ -34,3 +34,6 @@ Implement features with high engineering rigor (Pydantic-level typing on backend
 - **Trigger:** Tester reports a Regression or type mismatch.
   - **Fix:** Revert change, analyze dependency, re-apply with stricter types.
   - **Anneal:** Update this Directive to include a "Strict Type Checklist" for that specific module.
+- **Trigger:** Malformed Edit Error (`targetContent` not found).
+  - **Fix:** Re-read the file without line numbers, verify whitespace/indentation, and re-apply.
+  - **Anneal:** If common in a specific file, add an "Indentation Note" to its header.
