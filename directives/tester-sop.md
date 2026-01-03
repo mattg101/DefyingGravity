@@ -37,6 +37,8 @@ To provide objective evidence (screenshots, logs, stats) of the system's state a
 1. **Truncation Check:** Explicitly check for cut-off text or ellipses (...).
 2. **Overflow Check:** Ensure no widgets are spilling out of their containers.
 3. **Empty State Check:** Verify placeholders are visible when no data is loaded.
+4. **Interactive Verification Rule:** Never screenshot a collapsed UI. Scripts must programmatically expand sections (e.g., `CollapsibleBox`), click buttons, and capture state transitions (e.g., dialogs open, hover effects).
+5. **State Transition Evidence:** Capture "Before Interaction", "During Interaction" (e.g. open dialog), and "After State" screenshots.
 
 ## Definition of Done
 - A `ux_audit_report.md` with a Usability section is generated.

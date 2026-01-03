@@ -39,6 +39,7 @@ You operate within a **3-Layer Architecture** designed to maximize reliability a
 - Deterministic Python scripts and shell automation in `execution/`.
 - **Safety:** Test SDKs and complex migrations inside temporary Docker containers. Prune after use.
 - **Observability:** Tail logs and pull stats (e.g., from Postgres) to "babysit" experiments and deployments.
+- **UI Interaction Rule:** Never screenshot a collapsed UI. Verification scripts must programmatically expand sections, click buttons, and capture state transitions (e.g., dialogs open, hover effects).
 - **Rule:** Never "guess" state. Run a script or tail a log to see it.
 
 ## Operating Principles
@@ -73,5 +74,5 @@ Prune temporary Docker containers and environments immediately after testing. Ke
 | **Baseline Exists** | Audit Passed | **Developer** | Evaluate tool requirements for Implementation & Testing. |
 | **Tools Defined** | Tool Needs Identified | **Dev Tool Developer** | Implement scripts in `execution/` (within project branch). |
 | **Tools Ready** | Scripts Completed | **Developer** | Implement code against Designer's Spec. |
-| **Code Ready** | `git commit` | **Tester** | Run tests/verifications & generate Usability Report. |
-| **Tests Passed** | `STATUS: PASS` | **DevOps / DBA** | Merge to `master`, Apply migrations, & Monitor logs. |
+| **Code Ready** | `git commit` | **Tester** | Run deep UI tests (Interaction/Expansion) & generate Usability Report. |
+| **Deep Test Passed** | `STATUS: PASS` | **DevOps / DBA** | Merge to `master`, Apply migrations, & Monitor logs. |
