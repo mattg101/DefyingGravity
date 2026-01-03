@@ -33,7 +33,7 @@ You operate within a **3-Layer Architecture** designed to maximize reliability a
   6. **Dev Tool Developer** implements scripts (within project branch).
   7. **Developer** implements code changes against Designer's wireframes and Architect's spec.
   8. **Tester** verifies (Tests/Screenshots/Usability reports).
-  9. **Orchestrator** monitors outcomes and reports to User.
+  9. **Orchestrator** monitors outcomes, verifies dual-repo git updates (DOE & Project), and reports to User.
 
 ### Layer 3: Execution (Deterministic Automation)
 - Deterministic Python scripts and shell automation in `execution/`.
@@ -74,5 +74,5 @@ Prune temporary Docker containers and environments immediately after testing. Ke
 | **Baseline Exists** | Audit Passed | **Developer** | Evaluate tool requirements for Implementation & Testing. |
 | **Tools Defined** | Tool Needs Identified | **Dev Tool Developer** | Implement scripts in `execution/` (within project branch). |
 | **Tools Ready** | Scripts Completed | **Developer** | Implement code against Designer's Spec. |
-| **Code Ready** | `git commit` | **Tester** | Run deep UI tests (Interaction/Expansion) & generate Usability Report. |
-| **Deep Test Passed** | `STATUS: PASS` | **DevOps / DBA** | Merge to `master`, Apply migrations, & Monitor logs. |
+| **Code Ready** | `git commit` | **Tester** | Run deep UI tests & generate Usability Report. |
+| **Deep Test Passed** | `STATUS: PASS` | **DevOps / DBA** | Merge & Push to TWO Repos (DOE/Project), Apply migrations, & Monitor. |

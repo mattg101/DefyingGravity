@@ -27,13 +27,14 @@ Ensure the repository is linked and environment is ready.
 | 5 | **Tools Defined** | Tool Needs Identified | **Dev Tool Developer** | Implement scripts in `execution/`. |
 | 6 | **Tools Ready** | Scripts Completed | **Developer** | Implement code against Design/Spec. |
 | 7 | **Code Ready** | `git commit` | **Tester** | Verify & generate Usability Report. |
-| 8 | **Tests Passed** | `STATUS: PASS` | **DevOps / DBA** | Merge, Migrate, & Apply. |
-| 9 | **Deployed** | Merge Complete | **Orchestrator** | Monitor Logs/Stats & Report to User. |
+| 8 | **Tests Passed** | `STATUS: PASS` | **DevOps / DBA** | Merge, Push to DOE repo AND Project repo. |
+| 9 | **Deployed** | Push Verified (2/2) | **Orchestrator** | Monitor Logs/Stats & Report to User. |
 
 ## Handoff Protocol
 1. **Validate Inputs:** Ensure required files (e.g., `tech_spec.md`, `wireframes.png`) exist before handoff.
 2. **Verify Screenshots:** Inspect screenshots to ensure the app is actually rendered.
-3. **Clear Context:** Provide a 1-sentence summary of previous findings to the next agent.
+3. **Verify Dual-Repo Sync:** Before final sign-off, verify that both the DOE repo and the Project repo have been pushed.
+4. **Clear Context:** Provide a 1-sentence summary of previous findings to the next agent.
 
 ## Critical Failure Protocols (Annealing)
 - **The "Infinite Loop":** If an issue cycles 3 times, **STOP** and call the User.
@@ -47,4 +48,5 @@ Ensure the repository is linked and environment is ready.
 ## Definition of Done
 The workflow is complete when:
 1. The post-deployment monitoring confirms system stability.
-2. You notify the User: "Task Complete. Main branch updated and system is stable."
+2. Dual-repo sync verified: Both DOE and Project repositories are pushed.
+3. You notify the User: "Task Complete. All repos (DOE & Project) updated and system is stable."

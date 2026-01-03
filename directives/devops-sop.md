@@ -20,6 +20,7 @@ To maintain SOC-2 level configurations, manage SDK alignment, and handle Docker-
    - Prune temporary environments and containers immediately after use.
 3. **Deployment (Step 8):**
    - Manage the merging and deployment of verified code to `main`.
+   - **Dual-Repo Sync:** Ensure both the parent DOE repository and the project-specific repository (e.g., FrameTamer) are pushed.
    - Ensure deployment pipelines are stable.
 4. **Observability (Step 8+):**
    - Tailing logs to "babysit" deployments.
