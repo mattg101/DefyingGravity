@@ -21,10 +21,13 @@ def test():
     name2 = ColorUtils.get_closest_name(c2)
     print(f"Matched Name: {name2}")
 
-    # Check if Slate Gray is in COLORS
-    print(f"Is 'Slate Gray' in COLORS? {'Slate Gray' in COLORS}")
-    if 'Slate Gray' in COLORS:
-        print(f"Slate Gray Value: {COLORS['Slate Gray']}")
+    # Test User Colors
+    print("\n--- Testing User Problem Colors ---")
+    c3 = QColor("#171790")
+    print(f"Testing #171790 (Mat): {ColorUtils.get_closest_name(c3)}")
+    
+    c4 = QColor("#330033")
+    print(f"Testing #330033 (Frame): {ColorUtils.get_closest_name(c4)}")
 
 if __name__ == "__main__":
     test()
