@@ -20,7 +20,7 @@ Implement features with high engineering rigor (Pydantic-level typing on backend
    - **Safety:** All frontend code MUST ensure strong TypeScript safety and component boundary validation.
    - **Constraint:** **Develop to Wireframe.** Match the widget hierarchy and nesting structure of the Designer's wireframes exactly. No ad-hoc layout Hacks.
    - **Constraint:** Follow [GUI Style Guide](file:///c:/Users/mattg/OneDrive/Documents/Projects/dev/antigravity_dev/directives/gui-style-guide.md).
-   - **Constraint:** Use **Deterministic Editing Protocol** defined in `gemini.md` for all code modifications.
+   - **Constraint:** Use **Ultra-Rigorous Editing Protocol (Rule of Zero)** defined in `gemini.md` for all code modifications.
    - **Constraint:** Use defensive coding (try/except) for GUI signals.
 4. **Local Verification:**
    - Run syntax checks and linters (`flake8`, `pylint`, `tsc`).
