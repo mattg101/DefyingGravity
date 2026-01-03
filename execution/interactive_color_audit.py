@@ -36,6 +36,8 @@ def deep_color_audit():
             app.quit()
 
     def capture_step_1(window, ts):
+        print(f"Initial Mat Label: {window.lbl_mat_color_name.text()}")
+        print(f"Initial Frame Label: {window.lbl_frame_color_name.text()}")
         print("Step 1: Capturing full window with expanded panels...")
         window.grab().save(f'screenshots/dual_audit_1_full_{ts}.png')
         window.group_app.grab().save(f'screenshots/dual_audit_1_appearance_{ts}.png')
