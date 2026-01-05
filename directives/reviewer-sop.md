@@ -23,8 +23,12 @@ To aggressively review Pull Requests against the `pr_acceptance_criteria.md` and
 3. **Audit Reporting:**
    - Create `audit_reports/audit_[id].md` using `orchestration/template_audit_report.md`.
    - Provide specific feedback on code quality/rigor.
-4. **Handoff:**
-   - If MERGABLE, signal **DevOps**.
+4. **Execution / Handoff:**
+   - If MERGABLE:
+     - **Create PR:** Run `gh pr create --body-file pull_requests/pr_[id].md ...` to generate the URL.
+     - **Authorize:** Notify User with the PR Link and verdict.
+     - **Execute Merge:** If authorized by the User, run `gh pr merge --merge`.
+     - **Signal DevOps:** If complex deployment is needed, hand off to DevOps.
    - If REJECTED, signal **Developer** with specific audit failures.
 
 ## Definition of Done

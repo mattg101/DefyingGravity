@@ -23,7 +23,8 @@ Implement features with high engineering rigor (Strict Typing, Tests) using bran
    - **CRITICAL:** Include clear "Run Instructions" for the Tester.
    - Add initial "Local Test Report" evidence to the PR.
 4. **Handoff:**
-   - Signal the **Orchestrator** that the PR is ready for verification.
+   - **Push Code:** `git push origin feature/[name]` (or `dev`).
+   - **Signal Orchestrator:** Notify that the `pull_requests/pr_[id].md` artifact is ready for the **Reviewer**.
 
 ## Definition of Done
 - Code compiles and passes local unit tests.

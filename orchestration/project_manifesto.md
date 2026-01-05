@@ -11,8 +11,8 @@
 *Status: [ ] Pending | [/] In Progress | [x] Complete*
 
 ### Phase 1: The Hybrid Bridge (Connection)
-- [ ] **Task 1.1:** Setup C# SolidWorks Add-in boilerplate with WebView2 integration.
-- [ ] **Task 1.2:** Establish JSON-based communication bridge between C# and React.
+- [x] **Task 1.1:** Setup C# SolidWorks Add-in boilerplate with WebView2 integration.
+- [/] **Task 1.2:** Establish JSON-based communication bridge between C# and React.
 
 ### Phase 2: High-Performance Data Extraction
 - [ ] **Task 2.1:** Implement Parasolid-to-Mesh extraction logic (SolidWorks Tessellation API).

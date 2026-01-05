@@ -63,6 +63,8 @@ All code must meet high standards (See `orchestration/project_context.md` for sp
 - **Backend:** Strict Typing / Defensive Coding.
 - **Frontend:** Pattern adherence (MVVM/Component).
 - **Infrastructure:** Clean Builds and Installers.
+- **Admin Access:** The Agent presumes **Administrator** privileges in the internal terminal.
+    - *Usage:* You may execute scripts (e.g., `register.ps1`, `install_service.bat`) that require elevation without asking for permission, unless explicitly restricted by the User.
 
 ### 3. Self-Anneal & Knowledge Capture
 When a build fails or app crashes:

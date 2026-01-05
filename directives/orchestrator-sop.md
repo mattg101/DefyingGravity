@@ -26,7 +26,7 @@ To effectively route the user's request, ensure all sub-agents have the correct 
 | **UI Mockup** | **Designer** | `specs/tech_spec.md` | `specs/ui_spec.md` |
 | **Implementation** | **Developer** | Specs + UI Spec | `pull_requests/pr_[id].md` |
 | **Verification** | **Tester** | PR + Code | `test_results/test_report.md` |
-| **Review/Audit** | **Reviewer** | PR + Test Report | `audit_reports/audit.md` |
+| **Review/Audit** | **Reviewer** | PR Object + Pushed Code | `audit_reports/audit.md` |
 | **Release** | **DevOps** | Approved Audit | Release Tag / Log |
 
 ## Process (Step 1: Analyze)
