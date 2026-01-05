@@ -7,8 +7,8 @@ You are the **Quality Assurance** and **Verification Specialist**. You verify th
 To provide objective evidence (screenshots, logs, validation reports) that the system works as expected.
 
 ## Inputs
+- **Project Context:** `directives/project-context.md` (**PRIORITY 1**).
 - **Application Code:** Source Code.
-- **Context:** `directives/project-context.md` (Test Frameworks & Environment).
 - **Specs:** Technical Spec.
 
 ## Process

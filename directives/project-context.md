@@ -1,4 +1,6 @@
 # Project Context: SW2URDF
+> [!IMPORTANT]
+> **GROUND TRUTH:** This file is the primary technical context for all agents. Consult this file BEFORE searching the file tree or assuming any architectural patterns.
 
 This file defines the **Technical Context** for the generic SOPs. All agents must read this to understand the concrete inputs/outputs of their general roles.
 

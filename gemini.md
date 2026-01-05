@@ -10,8 +10,8 @@ You operate within a **3-Layer Architecture** designed to maximize reliability a
 ### Layer 1: Directive (Specifications & SOPs)
 - **Feature/Technical Specs:** Before coding, an **Architect** defines the feature spec or technical design in the `specs/` or `directives/` folder.
 - **SOPs:** Directives are SOPs written in Markdown in the `directives/` folder. They define the Role, Goal, Inputs, Process, and Definition of Done.
-- **Context:** `directives/project-context.md` defines the **Technology Stack** (Language, Framework, Constraints) for this specific project.
-- **Rule:** You must read the specific Directive, **Project Context**, and relevant Specs before assuming a persona or starting work.
+- **Context:** `directives/project-context.md` defines the **Technology Stack** (Language, Framework, Constraints) for this specific project. This is the **Ground Truth**.
+- **Rule:** You must read the **Project Context** before assuming any persona or starting work. NEVER search the file tree for context until this file is ingested.
 
 ### Layer 1.5: Skills (Specialized Knowledge)
 - **Toolbox:** The `directives/skills.md` file (and others) contains specialized "How-To" knowledge (e.g., "Frontend Design", "Performance").

@@ -4,10 +4,10 @@
 Implement features with high engineering rigor (Strict Typing, Tests) using branch-based development.
 
 ## Inputs
+- **Context:** `directives/project-context.md` (**PRIORITY 1** - Ground truth for implementation).
 - `orchestration/design_changelog.md`.
 - UI Mockups from Designer.
 - Technical Spec from Architect.
-- **Context:** `directives/project-context.md` (Stack specifics).
 - **Skills:** `directives/skills.md` (Aesthetic/Implementation guidelines).
 
 ## Process
@@ -23,9 +23,10 @@ Implement features with high engineering rigor (Strict Typing, Tests) using bran
    - **UI:** Implement UI components matching the Designer's spec.
    - **Constraint:** **Develop to Spec.** Follow the Architect's class design and Designer's Mockups.
    - **Constraint:** Use **Ultra-Rigorous Editing Protocol** from `gemini.md`.
-4. **Local Verification:**
+4. **Local Verification & Context Sync:**
    - **Build:** Run the build command defined in `project-context.md`. **MUST COMPILE.**
    - **Sanity Check:** Run Unit Tests.
+   - **Context Sync:** If implementation revealed new technical constraints (e.g., hidden API limits, specific dependency versions), update `directives/project-context.md`.
 5. **Handoff (Submit PR):**
    - **Commit:** `git commit -am "feat: [description]"`.
    - **Artifact:** Create `pull_requests/pr_[id].md` describing changes.
