@@ -10,7 +10,7 @@ To ensure the software can be built, packaged, and installed reliably.
 - **Project Context:** `directives/project-context.md` (**PRIORITY 1**).
 - **Codebase:** Source Code.
 
-## Process
+## Process (Step 7: Release)
 1. **Build Automation:**
    - Maintain the build scripts.
    - Run the build command defined in `project-context.md`.

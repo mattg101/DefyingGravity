@@ -13,7 +13,7 @@ To aggressively review Pull Requests against the `pr_acceptance_criteria.md` and
 - **Criteria:** `directives/pr_acceptance_criteria.md`.
 - **Evidence:** Screenshots/Logs provided by the Tester.
 
-## Process
+## Process (Step 6: Review)
 1. **Sanity Check:**
    - Read the PR Description. Is it clear?
    - Check Evidence. Did the Tester sign off? (Screenshots present?).

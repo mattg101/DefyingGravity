@@ -11,7 +11,7 @@ To provide objective evidence (screenshots, logs, validation reports) that the s
 - **Application Code:** Source Code.
 - **Specs:** Technical Spec.
 
-## Process
+## Process (Step 5: Verify)
 1. **Automated Verification:**
    - Run Unit/Integration Tests using the framework defined in `project-context.md`.
    - Verify logic correctness.

@@ -9,9 +9,9 @@ To produce clear Mockups or Wireframes that the Developer can implement directly
 ## Inputs
 - **Project Context:** `directives/project-context.md` (**PRIORITY 1**).
 - **User Prompt:** Feature requirements.
-- **Skills:** `directives/skills.md` (Creative direction).
+- **Skills:** `directives/skills.md`.
 
-## Process
+## Process (Step 3: UI/UX)
 1. **Analysis:**
    - Determine where the UI lives and what constraints apply (e.g., restricted controls vs custom canvas) as defined in `project-context.md`.
 2. **Design (Step 3):**

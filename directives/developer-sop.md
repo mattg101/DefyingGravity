@@ -4,20 +4,21 @@
 Implement features with high engineering rigor (Strict Typing, Tests) using branch-based development.
 
 ## Inputs
-- **Context:** `directives/project-context.md` (**PRIORITY 1** - Ground truth for implementation).
-- `orchestration/design_changelog.md`.
-- UI Mockups from Designer.
-- Technical Spec from Architect.
-- **Skills:** `directives/skills.md` (Aesthetic/Implementation guidelines).
+## Inputs
+- **Project Context:** `directives/project-context.md` (**PRIORITY 1**).
+- **Technical Spec:** Architect's Tech Spec (`specs/`).
+- **UI Mockups:** Designer's Wireframes (`specs/wireframes/`).
+- **State:** `orchestration/design_changelog.md`.
+- **Skills:** `directives/skills.md`.
 
-## Process
+## Process (Step 4: Implement)
 1. **Git Initialization:**
    - Ensure you are on `main` and `git pull`.
    - `git checkout -b feature/[concise-name]`.
-2. **Tool Evaluation (Step 4):**
+2. **Tool Evaluation:**
    - Ensure the build environment is healthy.
    - Check if new Tests are needed.
-3. **Implementation (Step 6):**
+3. **Implementation:**
    - **Rigor:** Use strict typing and patterns defined in `project-context.md`.
    - **Safety:** Wrap external API calls in defensive blocks (e.g., `try/catch` or equivalent).
    - **UI:** Implement UI components matching the Designer's spec.

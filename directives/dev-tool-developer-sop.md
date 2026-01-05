@@ -11,7 +11,7 @@ To create scripts that automate tedium: registration, log analysis, cleaning usa
 - **Request:** From Developer or Orchestrator.
 - **Environment:** Windows, Powershell, Python.
 
-## Process
+## Process (Automation)
 1. **Identify Friction:** (e.g., "Manually unregistering the DLL every time is slow").
 2. **Implement Script:**
    - **Powershell:** For Windows-native tasks (Registry, File System, MSBuild triggers).

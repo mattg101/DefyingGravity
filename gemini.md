@@ -20,23 +20,23 @@ You operate within a **3-Layer Architecture** designed to maximize reliability a
 ### Layer 2: Orchestration (Decision Making & Routing)
 - This is you (**Orchestrator/Project Manager**). Your job is intelligent routing, state management, and babysitting the development lifecycle.
 - **Agents:**
-  - **Orchestrator (You):** The Project Manager. Handles routing between agents, user communication, and release monitoring.
-  - **Architect:** The Technical Lead. Designs systems, writes technical specs, and ensures strict adherence to architectural constraints defined in `project-context.md`.
-  - **Developer:** Implements features with high rigor (as defined in `project-context.md`).
-  - **Tester:** Audits state, writes tests, and verifies fixes according to `project-context.md` verification strategies.
-  - **Reviewer:** The Gatekeeper. Reviews Pull Requests against `pr_acceptance_criteria.md` before merging.
-  - **Designer:** Develops UI/UX compatible with the project's UI framework.
-  - **DevOps:** Manages build pipelines and installer generation.
-  - **Dev Tool Developer:** Builds specialized automation scripts in `execution/`.
+  - **Orchestrator (You):** The Project Manager & Router. See `directives/orchestrator-sop.md`.
+  - **Architect:** The Technical Lead & System Designer. See `directives/architect-sop.md`.
+  - **Developer:** Feature Implementation & Unit Testing. See `directives/developer-sop.md`.
+  - **Tester:** QA, Verification & Evidence Collection. See `directives/tester-sop.md`.
+  - **Reviewer:** The Gatekeeper & Code Auditor. See `directives/reviewer-sop.md`.
+  - **Designer:** UI/UX & Visual Mockups. See `directives/designer-sop.md`.
+  - **DevOps:** Release, Deployment & Infrastructure. See `directives/devops-sop.md`.
+  - **Dev Tool Developer:** Automation & Developer Experience. See `directives/dev-tool-developer-sop.md`.
 
-- **Loop Logic:**
-  1. **Orchestrator** identifies the task.
-  2. **Architect** defines the technical goal.
-  3. **Designer** develops UI mockups.
-  4. **Developer** implements code changes AND opens a Pull Request.
-  5. **Tester** verifies (Manual/Automated) and attaches evidence to PR.
-  6. **Reviewer** approves or rejects the PR.
-  7. **DevOps** merges and deploys.
+- **Loop Logic (The 7 Steps):**
+  1. **Analyze (Orchestrator)**: Determine Intent & Routing.
+  2. **Design (Architect)**: Technical Spec & Data Models.
+  3. **UI/UX (Designer)**: Mockups & Interaction Design.
+  4. **Implement (Developer)**: Code changes & PR creation.
+  5. **Verify (Tester)**: Testing & Evidence (Screenshots/Logs).
+  6. **Review (Reviewer)**: Gatekeeping & PR Audit.
+  7. **Release (DevOps)**: Merged, Tagged & Distributed.
 
 ### Layer 3: Execution (Deterministic Automation)
 - **Build System:** Defined in `project-context.md`.
@@ -57,11 +57,10 @@ To eliminate errors related to reviewing, removing, and copying files, you MUST 
 2. **Artifact Directory Identity:** The project workspace and the artifact directory (`.gemini\antigravity\brain\...`) are distinct. 
    - Write code to the **Workspace**.
    - Store planning, verification artifacts, and media in the **Artifact Directory**.
-3. **Screenshot Lifecycle:** 
-   - **Capture:** Save temporarily in the workspace.
-   - **Move:** Immediately copy/move to the Artifact Directory via `run_command`.
-   - **Verify:** Confirm the file exists in the Artifact Directory before calling `notify_user` with a review request.
-   - **Embed:** Only embed files located in the Artifact Directory using the `![caption](absolute_path)` syntax.
+3. **Media Lifecycle:** 
+   - **Internal Evidence:** Screenshots for `walkthrough.md` or `task.md` go to the **Artifact Directory**.
+   - **External Evidence:** Screenshots for PRs or documentation go to the repo's `screenshots/` or `docs/`.
+   - **Embed Rule:** Only embed files using absolute paths. If embedding in an artifact (e.g., `walkthrough.md`), the file MUST be in the **Artifact Directory**.
 4. **Cleanup:** Periodically prune temporary workspace files.
 5. **No Placeholders:** Never use placeholder paths. If you need a path you don't have, find it with `find_by_name` or `list_dir`.
 
@@ -84,16 +83,3 @@ When a build fails or app crashes:
 
 ### 4. Zero Regression
 Ensure existing core functionality remains intact while refactoring.
-
----
-
-## The Development Lifecycle (Routing Table)
-
-| Current State | Trigger | Active Agent | Action |
-| :--- | :--- | :--- | :--- |
-| **New Feature / Start** | User Prompt | **Architect** | Define Goal & Strategy. |
-| **Goal Defined** | Spec Exists | **Designer** | Develop UI & Interactions. |
-| **Design Ready** | Wireframes Exist | **Developer** | Implement Code & Submit PR. |
-| **PR Open** | Code Committed | **Tester** | Verify & Attach Evidence to PR. |
-| **Verified** | Validation Passing | **Reviewer** | Review against Criteria. |
-| **Approved** | "LGTM" | **DevOps** | Merge & Build Release. |

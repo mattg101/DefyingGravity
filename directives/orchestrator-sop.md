@@ -28,12 +28,12 @@ To effectively route the user's request to the correct agent and maintain the st
 | **"Verify this output"** | **Tester** | Verification. |
 | **"Build/Deploy"** | **DevOps** | Infrastructure. |
 
-## Process
-1. **Analyze Request:** Determine the intent.
+## Process (Step 1: Analyze)
+1. **Analyze Request:** Determine the intent and identify which phase of the Flight Plan (Manifesto) applies.
 2. **Check State:** Read `gemini.md`, `task.md`, and **`directives/project-context.md`** (PRIORITY).
-3. **Route:** call the appropriate agent.
+3. **Route:** Call the appropriate agent as defined in the Routing Logic.
 4. **Monitor:** Ensure the agent follows their SOP and updates `directives/project-context.md` recursively if stack/architectural changes occur.
-5. **Verify:** Before reporting "Done", ensure the **Tester** has verified the result and the project state (Context/Task) is up-to-date.
+5. **Verify:** Before reporting "Done", ensure the **Tester** (Step 5) has verified the result and the project state (Context/Task) is up-to-date.
 
 ## Constraints
 - **Stability:** If the user reports a critical failure (Crash), IMMEDIATE priority to **Developer**.
