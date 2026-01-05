@@ -1,0 +1,88 @@
+Feasibility Assessment
+Verdict: Highly Feasible.
+
+The "Beautiful" UI: SolidWorks natively supports WebView2 (Edge/Chromium). This means you do not have to use Windows Forms or WPF. You can build the UI in React, Vue, or Svelte and render it directly inside a SolidWorks Task Pane or a floating window. This allows for modern styling, dark mode, and accessibility.
+
+Access to SW Frames/Axes: The SolidWorks API (COM-based) allows full access to ReferenceGeometry (Coordinate Systems and Axes). You can extract their transformation matrices relative to the assembly root or parent components.
+
+Live Preview & Rendering: By using a web-based UI stack, you can utilize Three.js (or React-Three-Fiber) for the 3D preview.
+
+Challenge: You must tessellate the SolidWorks B-Rep geometry into meshes (STL/OBJ format) in real-time to feed the preview. The SolidWorks API GetTessellation method is fast enough to handle this for the preview.
+
+The "Separate App" Requirement: While you are open to a separate app, the most robust architecture is a Hybrid App: A lightweight C# plugin that sits in SolidWorks to handle the data extraction (API calls) and hosts a modern web server or WebView for the UI.
+
+2. Software Architecture: The "Hybrid Bridge"
+To achieve "beautiful" and "interactive" while maintaining access to SolidWorks internals, I recommend this stack:
+
+The Backend (The Host):
+
+Language: C# (.NET Framework/Standard).
+
+Role: Connects to SolidWorks API. It listens for requests from the UI (e.g., "Get me all Coordinate Systems in Link A") and returns JSON data.
+
+The Frontend (The UI & Preview):
+
+Language: TypeScript + React.
+
+3D Engine: React-Three-Fiber (Three.js wrapper).
+
+Styling: Tailwind CSS (for that modern, accessible look).
+
+URDF Logic: A custom JavaScript class to handle the URDF XML structure in memory before export.
+
+The Communication Layer:
+
+WebView2 Interop or a local WebSocket. This allows the UI to say "Update Geometry" and the C# backend to push new mesh data instantly.
+
+3. Development Plan
+We will break this down into 4 phases. You can use Gemini to generate the boilerplate for each specific step.
+
+Phase 1: The Skeleton (Connection)
+Goal: Create a basic SolidWorks Add-in that opens a task pane displaying a "Hello World" web page.
+
+Gemini Prompt Strategy: "Generate a C# boilerplate for a SolidWorks Add-in using SwAddinLib. It should launch a TaskPane that hosts a Microsoft.Web.WebView2 control."
+
+Phase 2: The Data Bridge (Geometry Extraction)
+Goal: Select a component in SolidWorks and have it appear in the Web UI.
+
+Key Feature: Implement the GetTessellation API call in C# to convert the selected component into a triangular mesh (vertices/normals) and pass it to the WebView as a JSON object.
+
+Gemini Prompt Strategy: "Write a C# function using the SolidWorks API to get the tessellation of a selected Component2. Convert the vertex and normal arrays into a JSON format compatible with a Three.js BufferGeometry."
+
+Phase 3: The Interactive Preview (The "Beautiful" Part)
+Goal: A split-screen UI. Left side: The URDF Tree (Links/Joints). Right side: The 3D Preview.
+
+Key Feature - Visualizing Frames:
+
+When the user clicks a "Joint" in the UI, the C# backend queries the SolidWorks assembly for all Reference Coordinate Systems.
+
+The UI displays these as ghosted axes in the 3D preview.
+
+Live Editing: If the user drags a slider for "X Offset," the visual model in the preview moves instantly using Three.js transformation matrices, without needing to move the actual SolidWorks part.
+
+Gemini Prompt Strategy: "Create a React component using React-Three-Fiber that takes a list of meshes and transformation matrices. Add a 'TransformControls' gizmo that allows me to visually rotate and move the child link relative to the parent."
+
+Phase 4: The Export Logic
+Goal: Generate the .urdf file and the mesh files (STL).
+
+Key Feature: Traversing the Javascript tree object you built in the UI and writing it to XML strings.
+
+Gemini Prompt Strategy: "Write a TypeScript function that takes a nested 'Link' object (containing mass, inertia, visual, collision) and serializes it into valid URDF XML format."
+
+4. UI/UX Vision for the User
+To meet your "Accessible and Beautiful" requirement, we should avoid the standard "pop-up wizard" style.
+
+The Tree View: Use a node-based graph editor or a clean nested list (like the VS Code file explorer) rather than a Windows TreeView.
+
+Visual Feedback:
+
+Note: This tag is illustrative of the target aesthetic.
+
+Joint limits should be visualized as "pie slice" arcs in the 3D view.
+
+Collision meshes should be toggleable (transparent red overlays) to check for self-collision visually before export.
+
+Drag & Drop: Allow dragging a Coordinate System from the SolidWorks Feature Tree directly into your plugin window to assign it as a Joint Origin.
+
+Next Step
+Would you like me to generate the C# boilerplate code for the SolidWorks Add-in with the WebView2 integration to get the skeleton started?

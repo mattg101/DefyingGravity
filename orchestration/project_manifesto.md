@@ -1,57 +1,55 @@
-# PROJECT MANIFESTO: SolidWorks URDF Exporter & Visualizer
+# PROJECT MANIFESTO: SolidLink Plugin (SW2URDF Upgrade)
 
 ## 1. THE NORTH STAR (Objectives)
-**Goal:** Create a robust SolidWorks plugin that exports URDFs and provides a high-fidelity, interactive 3D preview of the kinematic chain *before* export.
-**Key Value:** "What you see is what you get." The user must trust that the preview matches the final URDF physics.
-**Architecture:** C# (SolidWorks API) for the backend, WPF for the UI, Python/Pytest for external "Puppet Master" testing.
+**Goal:** Create a premium SolidWorks plugin that upgrades the SW2URDF experience with a high-performance, browser-based 3D preview and a dedicated robot description configuration environment.
+**Key Value:** "Trust through Visualization." Use Parasolid geometry for internal high-fidelity rendering and provide a 60fps interactive preview that matches the final URDF physics.
+**Architecture:** C# (SolidWorks API) for the backend/data extraction, WebView2 (React/Three.js) for the frontend rendering and configuration UI.
 
 ---
 
 ## 2. THE FLIGHT PLAN (Roadmap)
 *Status: [ ] Pending | [/] In Progress | [x] Complete*
 
-### Phase 1: Core Export Logic (Current Baseline)
-- [x] Basic URDF XML generation
-- [x] Geometry export (STL/mesh)
-- [x] Feature tree traversal
+### Phase 1: The Hybrid Bridge (Connection)
+- [ ] **Task 1.1:** Setup C# SolidWorks Add-in boilerplate with WebView2 integration.
+- [ ] **Task 1.2:** Establish JSON-based communication bridge between C# and React.
 
-### Phase 2: The "Puppet Master" Testing Rig (HIGHEST PRIORITY)
-*Objective: Establish a robust testing loop before building complex GUI features.*
-- [ ] **Task 2.1:** Setup Python environment (pywinauto, pywin32, pytest) on Windows host.
-- [ ] **Task 2.2:** Create "Golden Master" repository (5 reference assemblies + expected URDFs + expected screenshots).
-- [ ] **Task 2.3:** Implement `test_runner.py` that launches SolidWorks, loads a model, and verifies API output.
-- [ ] **Task 2.4:** Integrate into CI/CD (or local script) to run before every commit.
+### Phase 2: High-Performance Data Extraction
+- [ ] **Task 2.1:** Implement Parasolid-to-Mesh extraction logic (SolidWorks Tessellation API).
+- [ ] **Task 2.2:** Build the Feature Tree Traversal engine with real-time filtering and selection.
 
-### Phase 3: The Visual Preview (The "Gooey" Features)
-*Objective: Interactive 3D preview with sensor visualization.*
-- [ ] **Task 3.1:** Implement "Decimation Engine" (Auto-simplify meshes for lightweight preview).
-- [ ] **Task 3.2:** Build WPF Preview Window (Embedded in Task Pane).
-- [ ] **Task 3.3:** Connect Joint Sliders to 3D Transform logic.
-    - *Requirement:* Must support flipping axes and changing limits in real-time.
-- [ ] **Task 3.4:** Implement Sensor Visualization (overlays for cameras/LIDAR).
+### Phase 3: The Configuration Environment (Dedicated Windows)
+*Objective: A unified, browser-based workspace that replaces the disjointed SW2URDF wizard.*
+- [ ] **Task 3.1:** **Stage 1: Tree Creation (The "Fast Builder"):** Implement the assembly tree structure where users can filter, hide, and batch-associate components to Links.
+- [ ] **Task 3.2:** **Stage 2: Joint Parameterization (The "Visual Editor"):** Create a panel for Joint origins, types, and limits, with real-time 3D feedback in the render window.
+- [ ] **Task 3.3:** **Stage 3: Link & Physicals Refinement:** Create a panel for Inertial, Visual, and Collision data. Automate decimation and inertia calculation.
+- [ ] **Task 3.4:** **Interactive Functional Preview:** Implement one-click "Preview Mode" to drag joints in 3D and verify limits/directions before export.
 
-### Phase 4: Git Integration
-- [ ] **Task 4.1:** Add "Push to Repo" button in the GUI.
+
+### Phase 4: Extended URDF Features & Export
+- [ ] **Task 4.1:** Implement `<sensor>` tag support (Camera, Ray, IMU, etc.).
+- [ ] **Task 4.2:** Final URDF XML and STL/DAE mesh export.
 
 ---
 
 ## 3. THE LAW (Standard Operating Procedures)
 
-### SOP A: The "Puppet Master" Rule (Testing)
-> **Constraint:** No GUI feature is considered "Complete" until it has an automated test.
+### SOP A: The Visualization Standard
+> **Constraint:** The preview MUST use decimated meshes extracted from Parasolids for performance, but maintain visual fidelity.
 > **Implementation:**
-> 1. You must write a Python script using `pywinauto` that clicks the new button/slider.
-> 2. You must assert the result either via internal API checks or Visual Diffing (OpenCV) of the screenshot.
-> 3. "It works on my machine" is not acceptable.
+> 1. Use Three.js for 60fps rendering in a dedicated browser window.
+> 2. Joint limits and directions must be visually indicated (e.g., arcs, arrows).
 
-### SOP B: The Visualization Standard
-> **Constraint:** The preview is for *logic verification*, not rendering beauty.
+### SOP B: Data & Workflow Integrity
+> **Constraint:** Maintain the logical sequence of SW2URDF (Config -> Joints -> Links) but remove the linear "Wizard" bottlenecks.
 > **Implementation:**
-> 1. Always use decimated meshes for the preview to ensure 60fps performance.
-> 2. Joint limits must be visually indicated (e.g., a red arc showing the range of motion).
+> 1. Use a single persistent Workspace with multiple panels.
+> 2. Allow non-linear navigation between Stages (e.g. go back to Link properties without losing Joint data).
+> 3. Provide "Bulk Select" from the SolidWorks feature tree via our custom filtering engine.
+
 
 ### SOP C: Code Hygiene (SolidWorks Specific)
 > **Constraint:** SolidWorks COM objects are fragile.
 > **Implementation:**
 > 1. Always wrap SolidWorks API calls in `try/catch` blocks.
-> 2. Explicitly release COM objects (marshal release) when done to prevent "zombie" SLDWORKS.exe processes.
+> 2. Explicitly release COM objects (`Marshal.ReleaseComObject`).
