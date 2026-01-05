@@ -1,47 +1,36 @@
 # Agent Instructions
 You are used in the Antigravity IDE by google.
 
-different AI modeles are metered in antigravity app.  if it seems like things are taking awhile suggest switching the model in the future.
+different AI modeles are metered in antigravity app. if it seems like things are taking awhile suggest switching the model in the future.
 
 You operate within a **3-Layer Architecture** designed to maximize reliability and software engineering rigor.
 
 ## The 3-Layer Architecture
 
 ### Layer 1: Directive (Specifications & SOPs)
-- **Feature/Technical Specs:** Before coding, an **Architect** defines the feature spec or technical design in the `specs/` or `directives/` folder.
-- **SOPs:** Directives are SOPs written in Markdown in the `directives/` folder. They define the Role, Goal, Inputs, Process, and Definition of Done.
-- **Context:** `directives/project-context.md` defines the **Technology Stack** (Language, Framework, Constraints) for this specific project. This is the **Ground Truth**.
-- **Rule:** You must read the **Project Context** before assuming any persona or starting work. NEVER search the file tree for context until this file is ingested.
+- **SOPs:** Directives are SOPs written in `directives/`. They define Roles and Goals.
+- **Skill-Driven:** Agents check `directives/skills.md` for specialized knowledge.
 
-### Layer 1.5: Skills (Specialized Knowledge)
-- **Toolbox:** The `directives/skills.md` file (and others) contains specialized "How-To" knowledge (e.g., "Frontend Design", "Performance").
-- **Rule:** Agents must check for relevant Skills before starting work.
+### Layer 2: Orchestration (Artifact-Driven Decision Making)
+- This layer ensures **Deterministic Execution** via strict input/output artifacts.
+- **Core Metadata:**
+  - `orchestration/project_context.md`: Technology stack (Ground Truth).
+  - `orchestration/project_manifesto.md`: Strategy and Roadmap.
+  - `orchestration/project_design_spec.md`: High-level system architecture.
+- **Artifact Pipeline (Steps):**
+  1. **Analyze (Orchestrator)**: Input: Prompt -> Output: Updated `task.md`.
+  2. **Design (Architect)**: Input: Prompt -> Output: `specs/tech_spec.md`.
+  3. **UI/UX (Designer)**: Input: Tech Spec -> Output: `specs/ui_spec.md`.
+  4. **Implement (Developer)**: Input: Specs -> Output: `pull_requests/pr_[id].md`.
+  5. **Verify (Tester)**: Input: PR -> Output: `test_results/test_report.md`.
+  6. **Review (Reviewer)**: Input: PR + Report -> Output: `audit_reports/audit.md`.
+  7. **Release (DevOps)**: Input: Approved Audit -> Output: Release Tag/Log.
 
-### Layer 2: Orchestration (Decision Making & Routing)
-- This is you (**Orchestrator/Project Manager**). Your job is intelligent routing, state management, and babysitting the development lifecycle.
-- **Agents:**
-  - **Orchestrator (You):** The Project Manager & Router. See `directives/orchestrator-sop.md`.
-  - **Architect:** The Technical Lead & System Designer. See `directives/architect-sop.md`.
-  - **Developer:** Feature Implementation & Unit Testing. See `directives/developer-sop.md`.
-  - **Tester:** QA, Verification & Evidence Collection. See `directives/tester-sop.md`.
-  - **Reviewer:** The Gatekeeper & Code Auditor. See `directives/reviewer-sop.md`.
-  - **Designer:** UI/UX & Visual Mockups. See `directives/designer-sop.md`.
-  - **DevOps:** Release, Deployment & Infrastructure. See `directives/devops-sop.md`.
-  - **Dev Tool Developer:** Automation & Developer Experience. See `directives/dev-tool-developer-sop.md`.
-
-- **Loop Logic (The 7 Steps):**
-  1. **Analyze (Orchestrator)**: Determine Intent & Routing.
-  2. **Design (Architect)**: Technical Spec & Data Models.
-  3. **UI/UX (Designer)**: Mockups & Interaction Design.
-  4. **Implement (Developer)**: Code changes & PR creation.
-  5. **Verify (Tester)**: Testing & Evidence (Screenshots/Logs).
-  6. **Review (Reviewer)**: Gatekeeping & PR Audit.
-  7. **Release (DevOps)**: Merged, Tagged & Distributed.
+- **Rule:** Every agent MUST use the corresponding template in `orchestration/` for their output.
 
 ### Layer 3: Execution (Deterministic Automation)
-- **Build System:** Defined in `project-context.md`.
-- **Testing Framework:** Defined in `project-context.md`.
-- **Rule:** Code MUST Compile/Pass Checks to be considered valid.
+- **Build System:** Adhere to `orchestration/project_context.md`.
+- **Rule:** Artifacts are NOT valid if the build fails.
 
 ### Ultra-Rigorous Editing Protocol (Rule of Zero)
 To eliminate "Malformed Edit" or "Target Content Not Found" errors, you MUST follow these steps:
@@ -60,7 +49,7 @@ To eliminate errors related to reviewing, removing, and copying files, you MUST 
 3. **Media Lifecycle:** 
    - **Internal Evidence:** Screenshots for `walkthrough.md` or `task.md` go to the **Artifact Directory**.
    - **External Evidence:** Screenshots for PRs or documentation go to the repo's `screenshots/` or `docs/`.
-   - **Embed Rule:** Only embed files using absolute paths. If embedding in an artifact (e.g., `walkthrough.md`), the file MUST be in the **Artifact Directory**.
+   - **Embed Rule:** Only embed files using absolute paths. If embedding in an artifact (e.g., `walkthrough.md`), the file MUST be in the **Artifact Directory`.
 4. **Cleanup:** Periodically prune temporary workspace files.
 5. **No Placeholders:** Never use placeholder paths. If you need a path you don't have, find it with `find_by_name` or `list_dir`.
 
@@ -70,7 +59,7 @@ To eliminate errors related to reviewing, removing, and copying files, you MUST 
 Always ensure a **Feature Spec** or **Technical Spec** exists. If missing, the **Architect** must write it first.
 
 ### 2. Rigor & Safety
-All code must meet high standards (See `project-context.md` for specifics):
+All code must meet high standards (See `orchestration/project_context.md` for specifics):
 - **Backend:** Strict Typing / Defensive Coding.
 - **Frontend:** Pattern adherence (MVVM/Component).
 - **Infrastructure:** Clean Builds and Installers.

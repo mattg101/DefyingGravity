@@ -5,39 +5,31 @@ Implement features with high engineering rigor (Strict Typing, Tests) using bran
 
 ## Inputs
 ## Inputs
-- **Project Context:** `directives/project-context.md` (**PRIORITY 1**).
+- **Project Context:** `orchestration/project_context.md` (**PRIORITY 1**).
 - **Technical Spec:** Architect's Tech Spec (`specs/`).
 - **UI Mockups:** Designer's Wireframes (`specs/wireframes/`).
 - **State:** `orchestration/design_changelog.md`.
 - **Skills:** `directives/skills.md`.
 
 ## Process (Step 4: Implement)
-1. **Git Initialization:**
-   - Ensure you are on `main` and `git pull`.
-   - `git checkout -b feature/[concise-name]`.
-2. **Tool Evaluation:**
-   - Ensure the build environment is healthy.
-   - Check if new Tests are needed.
-3. **Implementation:**
-   - **Rigor:** Use strict typing and patterns defined in `project-context.md`.
-   - **Safety:** Wrap external API calls in defensive blocks (e.g., `try/catch` or equivalent).
-   - **UI:** Implement UI components matching the Designer's spec.
-   - **Constraint:** **Develop to Spec.** Follow the Architect's class design and Designer's Mockups.
-   - **Constraint:** Use **Ultra-Rigorous Editing Protocol** from `gemini.md`.
-4. **Local Verification & Context Sync:**
-   - **Build:** Run the build command defined in `project-context.md`. **MUST COMPILE.**
-   - **Sanity Check:** Run Unit Tests.
-   - **Context Sync:** If implementation revealed new technical constraints (e.g., hidden API limits, specific dependency versions), update `directives/project-context.md`.
-5. **Handoff (Submit PR):**
-   - **Commit:** `git commit -am "feat: [description]"`.
-   - **Artifact:** Create `pull_requests/pr_[id].md` describing changes.
-   - **Signal:** Notify **Tester** to begin verification on the PR Branch.
+1. **Analysis & Setup:**
+   - Read `specs/tech_spec.md` and `specs/ui_spec.md` (if applicable).
+   - Ensure `git checkout -b feature/[name]`.
+2. **Implementation:**
+   - Use the **Ultra-Rigorous Editing Protocol** from `gemini.md`.
+   - Adhere strictly to the `orchestration/project_context.md`.
+3. **Local Doc & PR Creation:**
+   - Create `pull_requests/pr_[id].md` using `orchestration/template_pr.md`.
+   - **CRITICAL:** Include clear "Run Instructions" for the Tester.
+   - Add initial "Local Test Report" evidence to the PR.
+4. **Handoff:**
+   - Signal the **Orchestrator** that the PR is ready for verification.
+
+## Definition of Done
+- Code compiles and passes local unit tests.
+- `pull_requests/pr_[id].md` is complete with Run Instructions.
+- Context sync performed if new constraints were discovered.
 
 ## Self-Annealing Triggers
-- **Trigger:** Build Error.
-  - **Fix:** Correct code immediately.
-- **Trigger:** Application Crash.
-  - **Fix:** Add defensive checks.
-  - **Anneal:** Update "Known Pitfalls" in `project-context.md` or this SOP.
-- **Trigger:** Malformed Edit Error.
-  - **Fix:** Re-read file, use unique `TargetContent`.
+- **Trigger:** Build Error/Crash -> Update "Known Pitfalls" in `orchestration/project_context.md`.
+- **Trigger:** Malformed Edit -> Re-read file, use unique `TargetContent`.
