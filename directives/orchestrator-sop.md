@@ -35,6 +35,7 @@ To effectively route the user's request, ensure all sub-agents have the correct 
 3. **Initialize Artifacts:** If a new feature, initiate the `task.md` tracking.
 4. **Route:** Call the appropriate agent. Precompute the required template path for them.
 5. **Verify Handoff:** Ensure the agent's output exactly follows the template in `orchestration/`.
+6. **Log Execution:** Append a record of this action to `orchestration/execution_log.md` with the Date, SOP Name, and a brief Job Description.
 
 ## Definition of Done
 - Request is routed based on logic.

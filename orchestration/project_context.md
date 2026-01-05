@@ -5,22 +5,22 @@
 This file defines the **Technical Context** for the generic SOPs. All agents must read this to understand the concrete inputs/outputs of their general roles.
 
 ## Technology Stack
--   **Core Language:** C# .NET.
--   **Framework:** .NET Framework / .NET Core (depending on SW Version).
--   **UI:** WPF (Presentation Framework), Xaml.
+-   **Core Language:** C# .NET Framework 4.8 (Backend) / TypeScript (Frontend).
+-   **UI:** React (Vite) hosted in WebView2.
 -   **Host Application:** Solidworks (Plugin/Add-in Development).
--   **API:** Solidworks API (COM Interop).
--   **Build System:** MSBuild (Visual Studio Solutions `.sln`).
--   **Installation:** WiX Toolset (.msi), COM Registration (`regasm`).
+-   **API:** Solidworks API (COM Interop) <-> JSON Bridge <-> React.
+-   **Build System:** MSBuild (.sln) + Vite (npm).
+-   **Installation:** WiX Toolset (.msi) + PowerShell Dev Registration.
 
 ## Coding Standards (The "Rigor")
--   **Type Safety:** Strict static typing. Avoid `dynamic` unless interacting with late-bound COM objects.
--   **Error Handling:** Mandatory `try/catch` blocks around all Solidworks API calls to preventing crashing the host application.
--   **Memory Management:** Explicitly release COM objects (`Marshal.ReleaseComObject`) to prevent file locks or memory leaks.
+-   **Type Safety:** Strict static typing (C#) and Strict TypeScript.
+-   **Error Handling:** Mandatory `try/catch` around SW API calls.
+-   **Memory Management:** Explicitly release COM objects.
 
 ## Architecture Specifics
--   **MVVM:** Use Model-View-ViewModel pattern for WPF UI.
--   **Threading:** Solidworks API calls affecting the model or UI **MUST** run on the Main Thread. Long-running tasks (Exports) must be backgrounded but marshal calls back to UI thread safely.
+-   **Bridge Pattern:** All UI/Backend communication occurs via async JSON messages.
+-   **Threading:** Solidworks API on Main Thread; UI on WebView2 Process.
+-   **Frontend:** Functional React components + Hooks.
 
 ## Workflow Specifics
 -   **Testing:**
