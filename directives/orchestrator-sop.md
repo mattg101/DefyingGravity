@@ -3,7 +3,7 @@
 # 0. INITIALIZATION & CONTEXT LOADING
 **CRITICAL INSTRUCTION:** Before generating any code or plans, you must perform the following "Handshake":
 
-1.  **READ STATE:** Locate and read the file `PROJECT_MANIFESTO.md` in the repository root.
+1.  **READ STATE:** Locate and read the file `directives/project_manifesto.md`.
 2.  **VERIFY PHASE:** Identify the current active Phase in "THE FLIGHT PLAN".
     * *Constraint:* If the user asks for a feature in Phase 3, but Phase 2 is not marked `[x] Complete`, you must STOP and warn the user: "Testing infrastructure (Phase 2) is not complete. Per SOP A, we cannot proceed to GUI features yet."
 3.  **LOAD LAWS:** Ingest "THE LAW" section. These are non-negotiable constraints.
