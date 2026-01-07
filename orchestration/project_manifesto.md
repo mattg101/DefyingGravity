@@ -12,11 +12,12 @@
 
 ### Phase 1: The Hybrid Bridge (Connection)
 - [x] **Task 1.1:** Setup C# SolidWorks Add-in boilerplate with WebView2 integration.
-- [/] **Task 1.2:** Establish JSON-based communication bridge between C# and React.
+- [x] **Task 1.2:** Establish JSON-based communication bridge between C# and React.
 
 ### Phase 2: High-Performance Data Extraction
-- [ ] **Task 2.1:** Implement Parasolid-to-Mesh extraction logic (SolidWorks Tessellation API).
-- [ ] **Task 2.2:** Build the Feature Tree Traversal engine with real-time filtering and selection.
+- [x] **Task 2.1:** Implement Parasolid-to-Mesh extraction logic (SolidWorks Tessellation API).
+- [x] **Task 2.2:** Build the Feature Tree Traversal engine with real-time filtering and selection.
+- [x] **Task 2.3:** 3D Viewport Alignment (rotation matrix + flat rendering).
 
 ### Phase 3: The Configuration Environment (Dedicated Windows)
 *Objective: A unified, browser-based workspace that replaces the disjointed SW2URDF wizard.*

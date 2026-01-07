@@ -26,6 +26,14 @@ This file defines the **Technical Context** for the generic SOPs. All agents mus
 -   **WebView2 Permissions:** Must explicitly set `UserDataFolder` to `%LOCALAPPDATA%` to avoid `AccessDenied`.
 -   **UI Entry Point:** Use `CommandManager` (Toolbar), NOT `AddMenuItem`.
 -   **NuGet:** Use `packages.config` for .NET 4.8 MSBuild compatibility (no `PackageReference`).
+-   **MSBuild Requirements:** The project uses C# 7+ features. If building with the .NET Framework MSBuild (v4.0), you MUST point it to the Roslyn compiler from the NuGet package:
+    ```powershell
+    $roslynPath = "$PWD\packages\Microsoft.Net.Compilers.3.11.0\tools"
+    & "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe" SolidLink.sln /p:Configuration=Debug /p:Platform=x64 /p:CscToolPath=$roslynPath /p:CscToolExe="csc.exe"
+    ```
+-   **File Lock (MSB3027):** If build fails with "Could not copy... Exceeded retry count", **close SolidWorks** first. The add-in DLL is locked while SW is running.
+-   **Transform Matrix Interpretation:** SolidWorks `MathTransform.ArrayData` stores rotation as **row vectors** (axis directions). Three.js expects **column vectors**. Always transpose the 3x3 rotation block when converting.
+-   **Absolute Transforms:** SolidWorks `Component2.Transform2` returns **absolute** transforms from assembly origin, NOT parent-relative. When rendering nested hierarchies, flatten to root level or compute relative transforms.
 
 ## Workflow Specifics
 -   **Testing:**
