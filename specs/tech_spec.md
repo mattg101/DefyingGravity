@@ -51,7 +51,7 @@ interface Joint {
 
 ## 6. Definition of Done (Architect)
 - [x] SwAddin boilerplate with WebView2 integrated.
-- [ ] JSON bridge protocol defined for "Stage-Based" state management.
+- [x] JSON bridge protocol defined for "Stage-Based" state management. (See `specs/tech_spec_json_bridge.md`)
 - [ ] `<sensor>` tag schema mapped to ROS standards (Camera, Ray, IMU).
 - [ ] Automated Inertia-to-Ellipsoid visualization logic defined.
 - [ ] Drag-and-drop feedback loop from SW Feature Tree to React UI verified.
