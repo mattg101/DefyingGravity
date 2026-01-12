@@ -1,4 +1,4 @@
-# Project Context: SW2URDF
+# Project Context: SolidLink
 > [!IMPORTANT]
 > **GROUND TRUTH:** This file is the primary technical context for all agents. Consult this file BEFORE searching the file tree or assuming any architectural patterns.
 
@@ -21,6 +21,7 @@ This file defines the **Technical Context** for the generic SOPs. All agents mus
 -   **Bridge Pattern:** All UI/Backend communication occurs via async JSON messages.
 -   **Threading:** SolidWorks API on Main Thread; UI on WebView2 Process.
 -   **Frontend:** Functional React components + Hooks.
+-   **Abstraction Layer:** `SolidLink.Addin/Abstractions/` contains interfaces (`ISolidWorksContext`, `IModelDocument`, `IComponent`, etc.) that abstract SolidWorks COM types for dependency injection and testing.
 
 ## Known Pitfalls (Self-Annealed)
 -   **WebView2 Permissions:** Must explicitly set `UserDataFolder` to `%LOCALAPPDATA%` to avoid `AccessDenied`.
@@ -37,6 +38,13 @@ This file defines the **Technical Context** for the generic SOPs. All agents mus
 
 ## Workflow Specifics
 -   **Testing:**
-    -   *Logic:* NUnit/XUnit.
-    -   *Integration:* Manual verification in Solidworks (Task Panes, Property Pages).
+    -   *Unit Tests (No SolidWorks):* `SolidLink.Tests/` with NUnit 3.14.0 + Moq. Uses mock layer + JSON fixtures.
+    -   *Run Command:*
+        ```powershell
+        cd SolidLink
+        .\packages\NUnit.ConsoleRunner.3.16.3\tools\nunit3-console.exe .\SolidLink.Tests\bin\x64\Debug\SolidLink.Tests.dll --where "cat==Unit"
+        ```
+    -   *Integration:* Manual verification in SolidWorks (Task Panes, Property Pages). Use `[Category("RequiresSW")]` for tests that need SolidWorks.
 -   **Deploy:** Generate `.msi` via WiX.
+-   **Design Spec:** See `SolidLink/docs/solidlink-agent-dev-spec.md` for agent-friendly development toolchain details.
+
